@@ -46,3 +46,53 @@ SELECT
 	COUNT(DISTINCT(customer_key)) AS total_customers_orders
 FROM gold.facts_sales
 WHERE order_number IS NOT NULL
+
+-- Generate a Report that shows all key metrics of the business
+
+SELECT
+	'Total Sales' AS measure_name,
+	SUM(sales_amount) AS measure_value
+FROM gold.facts_sales
+
+UNION ALL
+
+SELECT
+	'Total Quantity' AS measure_name,
+	SUM(quantity) AS measure_value
+FROM gold.facts_sales
+
+UNION ALL
+
+SELECT
+	'Average Price' AS measure_name,
+	AVG(sales_amount) AS measure_value
+FROM gold.facts_sales
+
+UNION ALL
+
+SELECT
+	'Total Orders' AS measure_name,
+	COUNT(DISTINCT(order_number)) AS measure_value
+FROM gold.facts_sales
+
+UNION ALL
+
+SELECT
+	'Total Products' AS measure_name,
+	COUNT(DISTINCT(product_name)) AS measure_value
+FROM gold.dim_products
+
+UNION ALL
+
+SELECT
+	'Total Customers' AS measure_name,
+	COUNT(DISTINCT(customer_key)) AS measure_value
+FROM gold.dim_customers
+
+UNION ALL
+
+SELECT
+	'Total Customers' AS measure_name,
+	COUNT(DISTINCT(customer_key)) AS measure_value
+FROM gold.facts_sales
+WHERE order_number IS NOT NULL
